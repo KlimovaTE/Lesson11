@@ -23,8 +23,10 @@ public class FilmRepository {
     }
 
     public Film findById(int id) {
-        if (id < posters.length) {
-            return posters[id - 1];
+        for (Film item : posters) {
+            if (id == item.getId()) {
+                return item;
+            }
         }
         return null;
     }

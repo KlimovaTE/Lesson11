@@ -42,8 +42,8 @@ public class FilmsManagerWithRepositoryTest {
 
     @Test
     public void getFindById2() {
-        Film expected = item5;
-        Film actual = repo.findById(5);
+        Film expected = item4;
+        Film actual = repo.findById(100);
         Assertions.assertEquals(expected, actual);
     }
 
