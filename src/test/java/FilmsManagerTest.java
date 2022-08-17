@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 
 public class FilmsManagerTest {
 
+    FilmRepository repo= new FilmRepository();
+    FilmsManager manager = new FilmsManager(repo);
 
     Film item1 = new Film("Бладшот");
     Film item2 = new Film("Вперед");
@@ -18,10 +20,9 @@ public class FilmsManagerTest {
 
     @Test
     public void testAddNewFilm1() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item1);
-        repo.addNewFilm(item2);
-        repo.addNewFilm(item7);
+        manager.addNewFilm(item1);
+        manager.addNewFilm(item2);
+        manager.addNewFilm(item7);
 
 
         Film[] expected = {item1, item2, item7};
@@ -32,147 +33,139 @@ public class FilmsManagerTest {
 
     @Test
     public void testAddNewFilm2() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item10);
+        manager.addNewFilm(item10);
 
         Film[] expected = {item10};
-        Film[] actual = repo.findAll();
+        Film[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testAddNewFilm3() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item10);
-        repo.addNewFilm(item1);
+        manager.addNewFilm(item10);
+        manager.addNewFilm(item1);
 
         Film[] expected = {item10, item1};
-        Film[] actual = repo.findAll();
+        Film[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindAll1() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item1);
-        repo.addNewFilm(item2);
+        manager.addNewFilm(item1);
+        manager.addNewFilm(item2);
 
         Film[] expected = {item1, item2};
-        Film[] actual = repo.findAll();
+        Film[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindAll2() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item2);
+        manager.addNewFilm(item2);
 
         Film[] expected = {item2};
-        Film[] actual = repo.findAll();
+        Film[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindAll3() {
-        FilmsManager repo = new FilmsManager();
 
         Film[] expected = {};
-        Film[] actual = repo.findAll();
+        Film[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindLastWithNumberRecentlyAddedFilms1() {
-        FilmsManager repo = new FilmsManager(2);
-        repo.addNewFilm(item1);
-        repo.addNewFilm(item2);
-        repo.addNewFilm(item3);
-        repo.addNewFilm(item4);
-        repo.addNewFilm(item5);
-        repo.addNewFilm(item6);
-        repo.addNewFilm(item7);
-        repo.addNewFilm(item8);
-        repo.addNewFilm(item9);
-        repo.addNewFilm(item10);
-        repo.addNewFilm(item11);
+        FilmsManager manager = new FilmsManager(repo,2);
+        manager.addNewFilm(item1);
+        manager.addNewFilm(item2);
+        manager.addNewFilm(item3);
+        manager.addNewFilm(item4);
+        manager.addNewFilm(item5);
+        manager.addNewFilm(item6);
+        manager.addNewFilm(item7);
+        manager.addNewFilm(item8);
+        manager.addNewFilm(item9);
+        manager.addNewFilm(item10);
+        manager.addNewFilm(item11);
 
         Film[] expected = {item11, item10};
-        Film[] actual = repo.findLast();
+        Film[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindLastWithNumberRecentlyAddedFilms2() {
-        FilmsManager repo = new FilmsManager(6);
-        repo.addNewFilm(item1);
-        repo.addNewFilm(item2);
+        FilmsManager manager = new FilmsManager(repo,6);
+        manager.addNewFilm(item1);
+        manager.addNewFilm(item2);
 
         Film[] expected = {item2, item1};
-        Film[] actual = repo.findLast();
+        Film[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindLastWithNumberRecentlyAddedFilms3() {
-        FilmsManager repo = new FilmsManager(6);
+        FilmsManager manager = new FilmsManager(repo,6);
 
         Film[] expected = {};
-        Film[] actual = repo.findLast();
+        Film[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindLastWithOutNumberRecentlyAddedFilms1() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item1);
-        repo.addNewFilm(item2);
-        repo.addNewFilm(item3);
-        repo.addNewFilm(item4);
-        repo.addNewFilm(item5);
-        repo.addNewFilm(item6);
-        repo.addNewFilm(item7);
-        repo.addNewFilm(item8);
-        repo.addNewFilm(item9);
-        repo.addNewFilm(item10);
-        repo.addNewFilm(item11);
+        manager.addNewFilm(item1);
+        manager.addNewFilm(item2);
+        manager.addNewFilm(item3);
+        manager.addNewFilm(item4);
+        manager.addNewFilm(item5);
+        manager.addNewFilm(item6);
+        manager.addNewFilm(item7);
+        manager.addNewFilm(item8);
+        manager.addNewFilm(item9);
+        manager.addNewFilm(item10);
+        manager.addNewFilm(item11);
 
         Film[] expected = {item11, item10, item9, item8, item7, item6, item5, item4, item3, item2};
-        Film[] actual = repo.findLast();
+        Film[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindLastWithOutNumberRecentlyAddedFilms2() {
-        FilmsManager repo = new FilmsManager();
-        repo.addNewFilm(item1);
-        repo.addNewFilm(item2);
-        repo.addNewFilm(item3);
-        repo.addNewFilm(item4);
-        repo.addNewFilm(item5);
-        repo.addNewFilm(item6);
-        repo.addNewFilm(item7);
+        manager.addNewFilm(item1);
+        manager.addNewFilm(item2);
+        manager.addNewFilm(item3);
+        manager.addNewFilm(item4);
+        manager.addNewFilm(item5);
+        manager.addNewFilm(item6);
+        manager.addNewFilm(item7);
 
         Film[] expected = {item7, item6, item5, item4, item3, item2, item1};
-        Film[] actual = repo.findLast();
+        Film[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testFindLastWithOutNumberRecentlyAddedFilms3() {
-        FilmsManager repo = new FilmsManager();
 
         Film[] expected = {};
-        Film[] actual = repo.findLast();
+        Film[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
