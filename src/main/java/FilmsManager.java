@@ -1,27 +1,25 @@
 
 public class FilmsManager {
+    private FilmRepository repo;
     int numberRecentlyAddedFilms = 10;
 
-    public FilmsManager() {
+    public FilmsManager(FilmRepository repo) {
+        this.repo = repo;
     }
 
-    public FilmsManager(int numberRecentlyAddedFilms) {
+
+    public FilmsManager(FilmRepository repo, int numberRecentlyAddedFilms) {
+        this.repo = repo;
         this.numberRecentlyAddedFilms = numberRecentlyAddedFilms;
     }
 
-    public Film[] posters = new Film[0];
-
-    public void addNewFilm(Film newFilm) {
-        Film[] tmp = new Film[posters.length + 1];
-        for (int i = 0; i < posters.length; i++) {
-            tmp[i] = posters[i];
-        }
-        tmp[tmp.length - 1] = newFilm;
-        posters = tmp;
-    }
 
     public Film[] findAll() {
-        return posters;
+        return repo.findAll();
+    }
+
+    public void addNewFilm(Film newFilm) {
+        repo.save(newFilm);
     }
 
     public Film[] findLast() {
